@@ -3,7 +3,7 @@
 ## Description
 
 The `openstack-libs` charm provides a set of [charm libraries] which offers
-convenience methids for interacting with charmed OpenStack services.
+convenience methods for interacting with charmed OpenStack services.
 
 This charm is **not mean to be deployed** itself and is used as a mechanism
 for hosting libraries only.
@@ -12,7 +12,7 @@ for hosting libraries only.
 
 `charmcraft fetch-lib charms.openstack_libs.v0.keystone_requires`
 
-THe following libraries are availabe in this repository:
+THe following libraries are available in this repository:
 
 - `keystone_requires` - a library for interacting with both legacy
   and new K8S keystone operators.

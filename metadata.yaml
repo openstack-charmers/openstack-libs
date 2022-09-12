@@ -1,0 +1,14 @@
+# Copyright 2022 Canonical Ltd.
+# See LICENSE file for licensing details.
+name: openstack-libs
+display_name: OpenStack Libs
+description: |
+  Ops interface libraries for interacting with charmed operators
+  for OpenStack.
+  NOTE: This charm is not meant to be deployed
+summary: |
+  OpenStack libs.
+source: https://github.com/openstack-charmers/openstack-libs
+issues: https://github.com/openstack-charmers/openstack-libs/issues
+maintainers:
+  - James Page <james.page@canonical.com>
