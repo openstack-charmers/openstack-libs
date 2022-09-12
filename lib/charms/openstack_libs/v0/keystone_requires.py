@@ -47,7 +47,7 @@ class IdentityServiceClientCharm(CharmBase):
                 "internal_url": "http://internal-url",
                 "public_url": "http://public-url",
                 "admin_url": "http://admin-url",
-            }]
+            }],
             region = "region"
         )
         self.framework.observe(
@@ -105,7 +105,7 @@ LIBAPI = 0
 
 # Increment this PATCH version before using `charmcraft publish-lib` or reset
 # to 0 if you are raising the major API version
-LIBPATCH = 2
+LIBPATCH = 3
 
 
 class KeystoneConnectedEvent(EventBase):
