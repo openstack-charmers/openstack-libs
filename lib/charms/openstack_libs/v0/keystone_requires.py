@@ -23,12 +23,10 @@ relation name:
 
 Also provide additional parameters to the charm object:
     - service
-    - internal_url
-    - public_url
-    - admin_url
+    - service_endpoints
     - region
 
-Two events are also available to respond to:
+Three events are also available to respond to:
     - connected
     - ready
     - goneaway
@@ -44,10 +42,12 @@ class IdentityServiceClientCharm(CharmBase):
         # IdentityService Requires
         self.identity_service = KeystoneRequires(
             self, "identity-service",
-            service = "my-service"
-            internal_url = "http://internal-url"
-            public_url = "http://public-url"
-            admin_url = "http://admin-url"
+            service = "my-service",
+            service_endpoints = [{
+                "internal_url": "http://internal-url",
+                "public_url": "http://public-url",
+                "admin_url": "http://admin-url",
+            }]
             region = "region"
         )
         self.framework.observe(
@@ -105,7 +105,7 @@ LIBAPI = 0
 
 # Increment this PATCH version before using `charmcraft publish-lib` or reset
 # to 0 if you are raising the major API version
-LIBPATCH = 1
+LIBPATCH = 2
 
 
 class KeystoneConnectedEvent(EventBase):
