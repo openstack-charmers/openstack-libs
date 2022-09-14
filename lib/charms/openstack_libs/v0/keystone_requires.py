@@ -140,7 +140,6 @@ class KeystoneRequires(Object):
     on = KeystoneServerEvents()
 
     _backwards_compat_remaps = {
-        "admin-user-name": "admin_user",
         "service-user-name": "service_username",
         "service-project-name": "service_tenant",
         "service-project-id": "service_tenant_id",
