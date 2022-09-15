@@ -155,6 +155,7 @@ class TestKeystoneRequires(unittest.TestCase):
         )
 
     def test_forward_compat(self):
+        """Check forwards compatibility with application data."""
         self.harness.update_relation_data(
             self.rel_id,
             "keystone",
@@ -169,6 +170,7 @@ class TestKeystoneRequires(unittest.TestCase):
             )
 
     def test_backward_compat(self):
+        """Check backwards compatibility with unit data."""
         self.harness.update_relation_data(
             self.rel_id,
             "keystone/0",
@@ -194,6 +196,7 @@ class TestKeystoneRequires(unittest.TestCase):
         self.assertIsNone(self.harness.charm.identity_service.admin_auth_url)
 
     def test_app_data_priority(self):
+        """Ensure that the app data bag takes priority over unit data."""
         self.harness.update_relation_data(
             self.rel_id,
             "keystone",
