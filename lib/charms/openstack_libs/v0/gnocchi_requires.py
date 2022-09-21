@@ -12,7 +12,78 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""TODO: Add a proper docstring here.
+"""GnocchiRequires module.
+
+This library contains the Requires for handling the gnocchi interface.
+
+In order to use `GnocchiRequires` in your charm, add the relation interface in the `metadata.yaml` file:
+```
+requires:
+  metric-service:
+    interface: gnocchi
+```
+
+Also provide additional parameters to the charm object:
+    - region
+
+Two events are also available to respond to:
+    - connected
+    - ready
+    - goneaway
+
+A basic example showing the usage of this relation follows:
+
+```
+from charms.openstack_libs.v0.gnocchi_requires import GnocchiRequires
+
+class GnochiClientCharm(CharmBase):
+    def __init__(self, *args):
+        super().__init__(*args)
+
+        # Gnochi Requires
+        self.metric_service = GnocchiRequires(
+            self, "metric-service"
+            region = "region"
+        )
+
+        # Event handlers
+        self.framework.observe(
+            self.metric_service.on.connected,
+            self._on_metric_service_connected)
+        self.framework.observe(
+            self.metric_service.on.ready,
+            self._on_metric_service_ready)
+        self.framework.observe(
+            self.metric_service.on.goneaway,
+            self._on_metric_service_goneaway)
+
+    def _on_metric_service_connected(self, event):
+        '''React to the GnocchiRequires connected event.
+
+        This event happens when a GnocchiRequires relation is added to the
+        model before credentials etc have been provided.
+        '''
+        # Do something before the relation is complete
+        pass
+
+    def _on_metric_service_ready(self, event):
+        '''React to the Gnochi ready event.
+
+        The GnocchiRequires interface will use the provided config for the
+        request to the metric server.
+        '''
+        # GnocchiRequires Relation is ready. Do something with the
+        # completed relation.
+        pass
+
+    def _on_metric_service_goneaway(self, event):
+        '''React to the Gnochi goneaway event.
+
+        This event happens when an Gnochi relation is removed.
+        '''
+        # GnocchiRequires Relation has goneaway. shutdown services or suchlike
+        pass
+```
 """
 
 import json
@@ -118,4 +189,3 @@ class GnocchiRequires(Object):
     def gnocchi_url(self) -> str:
         """Return the gnocchi_url."""
         return self.get_data("gnocchi_url")
-
