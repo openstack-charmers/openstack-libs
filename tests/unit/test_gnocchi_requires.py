@@ -23,10 +23,7 @@ class ApplicationCharm(CharmBase):
 
     def __init__(self, *args):
         super().__init__(*args)
-        self.metric_service = GnocchiRequires(
-            self,
-            RELATION_NAME
-        )
+        self.metric_service = GnocchiRequires(self, RELATION_NAME)
 
         self.framework.observe(
             self.metric_service.on.connected,
@@ -62,10 +59,10 @@ class TestGnocchiRequires(unittest.TestCase):
         self.harness.begin_with_initial_hooks()
 
         gnocchi_data = {
-            'egress-subnets': '10.0.0.1/32',
-            'gnocchi_url': 'https://10.0.0.1:8041',
-            'ingress-address': '10.0.0.1',
-            'private-address': '10.0.0.1',
+            "egress-subnets": "10.0.0.1/32",
+            "gnocchi_url": "https://10.0.0.1:8041",
+            "ingress-address": "10.0.0.1",
+            "private-address": "10.0.0.1",
         }
 
         self.harness.update_relation_data(

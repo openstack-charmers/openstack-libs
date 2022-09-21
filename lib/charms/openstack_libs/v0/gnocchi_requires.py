@@ -16,7 +16,8 @@
 
 This library contains the Requires for handling the gnocchi interface.
 
-In order to use `GnocchiRequires` in your charm, add the relation interface in the `metadata.yaml` file:
+In order to use `GnocchiRequires` in your charm,
+add the relation interface in the `metadata.yaml` file:
 ```
 requires:
   metric-service:
@@ -86,7 +87,6 @@ class GnochiClientCharm(CharmBase):
 ```
 """
 
-import json
 import logging
 
 from ops.framework import EventBase, EventSource, Object, ObjectEvents
@@ -105,16 +105,19 @@ LIBPATCH = 1
 
 class GnocchiConnectedEvent(EventBase):
     """Gnocchi connected Event."""
+
     pass
 
 
 class GnocchiReadyEvent(EventBase):
     """Gnocchi ready for use Event."""
+
     pass
 
 
 class GnocchiGoneAwayEvent(EventBase):
     """Gnocchi relation has gone-away Event."""
+
     pass
 
 
@@ -131,9 +134,7 @@ class GnocchiRequires(Object):
 
     on = GnocchiServerEvents()
 
-    def __init__(
-        self, charm, relation_name: str
-    ):
+    def __init__(self, charm, relation_name: str):
         super().__init__(charm, relation_name)
         self.charm = charm
         self.relation_name = relation_name
@@ -163,7 +164,11 @@ class GnocchiRequires(Object):
     def _on_gnocchi_relation_changed(self, event):
         """Gnocchi relation changed."""
         logging.debug("Gnocchi on_changed")
-        self.on.ready.emit()
+        try:
+            self.gnocchi_url
+            self.on.ready.emit()
+        except AttributeError:
+            pass
 
     def _on_gnocchi_relation_broken(self, event):
         """Gnocchi relation broken."""
