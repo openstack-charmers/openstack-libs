@@ -132,8 +132,8 @@ class RabbitMQRequires(Object):
         super().__init__(charm, relation_name)
         self.charm = charm
         self.relation_name = relation_name
-        self.username = username
-        self.vhost = vhost
+        self._username = username
+        self._vhost = vhost
 
         self.framework.observe(
             self.charm.on[relation_name].relation_joined,
@@ -186,6 +186,16 @@ class RabbitMQRequires(Object):
     def password(self) -> str:
         """Return the password."""
         return self._get_data("password")
+
+    @property
+    def username(self) -> str:
+        """Return the username."""
+        return self._username
+
+    @property
+    def vhost(self) -> str:
+        """Return the vhost."""
+        return self._vhost
 
     def _get_remote_unit_data(self, key: str) -> str:
         """Return the value for the given key from remote app data."""
